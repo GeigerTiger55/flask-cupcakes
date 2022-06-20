@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="cupcakes-container container">
+
+
+    <!-- List of all cupcakes -->
+    <ul id="all-cupcakes-list" class="cupcakes-list"></ul>
+
+
+  </section>
+
+<form id="cupcake-add-form" method="POST">
+  {{ form.hidden_tag() }}
+  
+  <!--add type=hidden form fields -->
+
+  {% for field in form if field.widget.input_type != 'hidden' %}
+
+  <p>
+    {{ field.label }}
+    {{ field }}
+
+    {% for error in field.errors %}
+      {{ error }}
+    {% endfor %}
+  </p>
+
+  {% endfor %}
+
+  <button type="submit">Submit</button>
+</form>
+
+{% endblock %}
