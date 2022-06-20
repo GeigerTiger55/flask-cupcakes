@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request, render_template
 #from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Cupcake
+from forms import CupcakeForm
 
 app = Flask(__name__)
 
@@ -20,7 +21,9 @@ db.create_all()
 @app.get('/')
 def show_home_page():
     """Shows cupcakes"""
-    return render_template("cupcakes.html")
+    form = CupcakeForm()
+
+    return render_template("cupcakes.html", form=form)
 
 @app.get('/api/cupcakes')
 def list_all_cupcakes():
