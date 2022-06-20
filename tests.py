@@ -108,3 +108,55 @@ class CupcakeViewsTestCase(TestCase):
             })
 
             self.assertEqual(Cupcake.query.count(), 2)
+
+    def test_patch_cupcake(self):
+        """Test updating a cupcake's info using the patch request"""
+        with app.test_client() as client:
+            url = f'/api/cupcakes/{self.cupcake.id}'
+            self.cupcake.flavor = 'PatchFlavor'
+            serialized = self.cupcake.serialize()
+            resp = client.patch(url, json=serialized)
+
+            self.assertEqual(resp.status_code, 200)
+
+            self.assertEqual(resp.json, {
+                "cupcake": {
+                    "id": self.cupcake.id,
+                    "flavor": "PatchFlavor",
+                    "size": "TestSize",
+                    "rating": 5,
+                    "image": "http://test.com/cupcake.jpg"
+                }
+            })
+
+
+    def test_patch_non_cupcake(self):
+        """Test updating a non-existent cupcake's info using the patch request"""
+        with app.test_client() as client:
+            url = f'/api/cupcakes/0'
+            resp = client.patch(url)
+
+            self.assertEqual(resp.status_code, 404)
+
+
+    def test_delete_cupcake(self):
+        """Test deleting a cupcake"""
+        with app.test_client() as client:
+            url = f'/api/cupcakes/{self.cupcake.id}'
+            serialized = self.cupcake.serialize()
+            resp = client.delete(url, json=serialized)
+
+            self.assertEqual(resp.status_code, 200)
+
+            self.assertEqual(resp.json, {
+                "deleted": self.cupcake.id 
+            })
+
+
+    def test_delete_non_cupcake(self):
+        """Test deleting a cupcake that doesn't exist"""
+        with app.test_client() as client:
+            url = f'/api/cupcakes/0'
+            resp = client.delete(url)
+
+            self.assertEqual(resp.status_code, 404)
