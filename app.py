@@ -44,12 +44,14 @@ def create_cupcake():
         - Returns JSON {'cupcake': {id, flavor, size...}}
     
     """
+    image = request.json["image"]
+    image = str(image) if image else None
 
     new_cupcake = Cupcake(
         flavor = request.json["flavor"],
         size = request.json["size"],
         rating = request.json["rating"],
-        image = request.json["image"],
+        image = image,
     )
     
     db.session.add(new_cupcake)
