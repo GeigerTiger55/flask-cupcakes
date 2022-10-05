@@ -1,7 +1,7 @@
 Flask-cupcakes
 ===========================
 
-This application....
+This application has a RESTful API with a PostgreSQL database. It displays cupcakes, allows the user to add a new cupcake, edit/patch a cupcake and delete a cupcake.
 
 
 Getting Started
