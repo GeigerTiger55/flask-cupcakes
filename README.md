@@ -26,7 +26,7 @@ Download all files
 
 ### Start the server
 
-% flask run
+        % flask run
 
 
 Run Tests
@@ -34,4 +34,4 @@ Run Tests
 
 To run tests, enter in the command line:
 
-% python3 -m unittest tests.py
+        % python3 -m unittest tests.py
